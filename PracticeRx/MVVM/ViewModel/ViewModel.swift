@@ -35,8 +35,21 @@ final class ViewModel:  ViewModelInput, ViewModelOutput, HasDisposeBag {
     lazy var changeModelObservable: Observable<Void> = _changeModelObservable.asObservable()
     // 取得データ
     private(set) var models: [GithubModel] = []
-    
+    private var error: GithubError?
     // ストリームを決める
     init() {
+        _searchText
+            .map{ word in
+                API.shared.getRepositoly(searchWord: word) { result -> Void in
+                    switch result {
+                    case .success(let model):
+                        self.models = model
+                    case .failure(_): break
+                    }
+                }
+                return
+            }
+            .bind(to: _changeModelObservable)
+            .disposed(by: disposeBag)
     }
 }

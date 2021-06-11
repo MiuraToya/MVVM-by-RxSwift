@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct GithubModel {
+struct Item: Codable {
+    let items: [GithubModel]?
+}
+
+struct GithubModel: Codable {
     var id: Int
     var fullName: String
     
@@ -15,4 +19,8 @@ struct GithubModel {
         case id
         case fullName = "full_name"
     }
+}
+
+enum GithubError: Error {
+    case networkError, unknownError
 }
