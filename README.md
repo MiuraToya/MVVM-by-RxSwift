@@ -1,2 +1,3 @@
 # MVVM-by-RxSwift
-## RxSwiftの練習
+## RxSwiftとMVVMの練習
+
